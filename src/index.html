@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title><%= json.project.seo_title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="__sync_contentCategory" content="meterA">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
+
+    <%= t.include("partials/_head.html") %>
+
+  </head>
+
+  <%= !json.project.embedded ? "<body>" : "<body is='responsive-body'>" %>
+
+    <div class="title-container">
+      <div class="title"><%= json.gruden_timeline.Title %></div>
+      <div class="author">By <a href="mailto:mkawahara@sfchronicle.com">Matt Kawahara</a></div>
+    </div>
+
+    <div class="intro"><%= json.gruden_timeline.Intro %></div>
+
+    <div class="timeline-container">
+    <% json.gruden_timeline.timeline.forEach(function(d,didx){ %>
+
+      <% if (didx%2 == 0) { %>
+        <div class="event left">
+          <div class="timestamp-circle right"></div>
+          <div class="timestamp"><%= d.Year %></div>
+          <div class="hed"><%= d.Hed %></div>
+          <div class="description"><%= d.Event %></div>
+          <% if (d.Photo) { %>
+            <div class="timeline-img <%=d.Class%>">
+              <img src="http://ww2.hdnux.com/photos/61/64/55/<%= d.Photo %>/3/500x0.jpg">
+              <div class="caption"><%=d.Credit%></div>
+            </div>
+          <% } %>
+          <% if (d.Link){ %>
+            <div class="read-more-link"><a href="<%=d.Link%>" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> Read more</a></div>
+          <% } %>
+        </div>
+        <div class="event"></div>
+      <% } else { %>
+        <div class="event"></div>
+        <div class="event right">
+          <div class="timestamp-circle left"></div>
+          <div class="timestamp"><%= d.Year %></div>
+          <div class="hed"><%= d.Hed %></div>
+          <div class="description"><%= d.Event %></div>
+          <% if (d.Photo) { %>
+            <div class="timeline-img <%=d.Class%>">
+              <img src="http://ww2.hdnux.com/photos/61/64/55/<%= d.Photo %>/3/500x0.jpg">
+              <div class="caption"><%=d.Credit%></div>
+            </div>
+          <% } %>
+        </div>
+      <% } %>
+
+    <% }) %>
+    </div>
+
+    <div class="credit-container">
+      <div>Reporter: <a href="mailto:mkawahara@sfchronicle.com">Matt Kawahara</a></div>
+      <div>Editor: <a href="mailto:jhu@sfchronicle.com">Janny Hu</a></div>
+      <div>Photo editor: <a href="mailto:awashburn@sfchronicle.com">Alex Washburn</a></div>
+      <div>Designer and developer: <a href="mailto:eoneill@sfchronicle.com">Emma O'Neill</a></div>
+    </div>
+
+    <script src="app.js" async></script>
+    <%= t.include("partials/_helloSFC.html") %>
+
+  </body>
+</html>
